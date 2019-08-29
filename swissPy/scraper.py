@@ -14,7 +14,9 @@ from pylatexenc.latex2text import LatexNodes2Text
 PROBLEMS = 'https://projecteuler.net/problem=%d'
 NUM_PROBLEMS = 667
 TRANSLATE = LatexNodes2Text()
-INFO = re.compile(r'Published on (\w+, .* (?:am|pm)); Solved by (\d+);Difficulty rating: (\d+%)')
+INFO = re.compile(
+    r'Published on (\w+, .* (?:am|pm)); Solved by (\d+);Difficulty rating: (\d+%)'
+)
 
 
 async def _fetch_problem(url, session):
@@ -66,8 +68,9 @@ if __name__ == "__main__":
         'data': list(fetch_problems()),
         'date': datetime.now().isoformat(),
         'num_problems': NUM_PROBLEMS,
-        'url': PROBLEMS  
+        'url': PROBLEMS.replace('%d', '%s')
     }
+
     with open(problems_path / 'solutions.json', 'r') as f:
         solutions = ChainMap(*json.load(f))
 

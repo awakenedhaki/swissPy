@@ -1,0 +1,17 @@
+'''
+Problem ID: %s
+Problem Title: %s
+
+Probelm URL: %s
+
+Prompt:
+%s
+'''
+
+
+def compute():
+	pass
+
+
+if __name__ == '__main__':
+	pass
