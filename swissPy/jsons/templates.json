@@ -1,0 +1,3 @@
+{
+	"python": "'''\nProblem ID: %s\nProblem Title: %s\n\nProblem URL: %s\n\nPrompt:\n%s\n'''\n\n\ndef compute():\n    pass\n\n\nif __name__ == '__main__':\n    pass"
+}
