@@ -2,8 +2,10 @@ import json
 import click
 
 from pathlib import Path
-from helpers import make_problem_file, load_extensions
-from printers import printer
+from swissPy.utils.printers import printer
+from swissPy.utils.helpers import make_problem_file
+from swissPy.utils.loaders import load_extensions
+from swissPy.utils.finders import find_next
 
 
 @click.group()
@@ -28,27 +30,25 @@ def setup():
 @click.option('--no-url', is_flag=True)
 def show(**kwargs):
     kwargs = {k: v for k, v in kwargs.items() if v is not None}
-    if 'range' in kwargs:
-        del kwargs['next']
-        printer(method='range', **kwargs)
+    if kwargs['next']:
+        printer(method='next', **kwargs)
     elif 'id' in kwargs:
         del kwargs['next']
         printer(method='id', **kwargs)
-    elif next:
-        printer(method='next', **kwargs)
+    elif 'range' in kwargs:
+        del kwargs['next']
+        printer(method='range', **kwargs)
 
 
 @main.command()
-@click.option('-l', '--langauge')
-@click.option('-n', '--next')
+@click.option('-l', '--language')
+@click.option('-n', '--next', is_flag=True)
 @click.option('-i', '--id')
 def mkproblem(language, next, id):
-    make_problem_file(language, id)
-
-
-@main.command()
-def answer():
-    pass
+    if next:
+        make_problem_file(language, find_next())
+    else:
+        make_problem_file(language, id)
 
 
 @main.command()
@@ -67,7 +67,7 @@ def submit(id, language):
         raise ValueError(f'{id} is not a valid problem ID.')
 
     output = exec(rosalind)
-    response = request_with_solved_captcha(id)
+    # response = request_with_solved_captcha(id)
 
 
 if __name__ == "__main__":
