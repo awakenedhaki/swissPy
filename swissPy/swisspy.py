@@ -2,10 +2,10 @@ import json
 import click
 
 from pathlib import Path
-from swissPy.utils.printers import printer
-from swissPy.utils.helpers import make_problem_file
-from swissPy.utils.loaders import load_extensions
-from swissPy.utils.finders import find_next
+from utils.printers import printer
+from utils.helpers import make_problem_file
+from utils.loaders import load_extensions
+from utils.finders import find_next
 
 
 @click.group()
@@ -41,7 +41,7 @@ def show(**kwargs):
 
 
 @main.command()
-@click.option('-l', '--language')
+@click.argument('language')
 @click.option('-n', '--next', is_flag=True)
 @click.option('-i', '--id')
 def mkproblem(language, next, id):
