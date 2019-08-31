@@ -20,5 +20,6 @@ def make_problem_file(language, id):
 
     extension = extensions[language]
     problem_path = EULER / f'{id:0>3}.{extension}'
+    print(f'Creating file {problem_path}')
     with problem_path.open('x') as f:
         f.write(template)
