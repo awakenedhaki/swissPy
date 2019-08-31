@@ -1,7 +1,8 @@
 import re
 import json
 
-from swissPy.utils.finders import find_next
+from .loaders import load_problems
+from .finders import find_next
 from pathlib import Path
 from blessings import Terminal
 from click import echo
@@ -9,9 +10,7 @@ from operator import itemgetter
 
 TERMINAL = Terminal()
 EULER = Path.home() / '.euler'
-PROBLEMS_PATH = Path(__file__).parent / 'jsons' / 'problems.json'
-with PROBLEMS_PATH.open('r') as f:
-    PROBLEMS = json.load(f)
+PROBLEMS = load_problems()
 
 
 def _format(problem, created, print_solution, no_url):
