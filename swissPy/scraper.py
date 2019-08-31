@@ -20,11 +20,24 @@ INFO = re.compile(
 
 
 async def _fetch_problem(url, session):
+    '''
+    GET problem HTML
+    
+    Keyword Arguments:
+        - url: Problem URL
+        - Session: Current aiohttp ClientSession
+    '''
     async with session.get(url) as response:
         return await response.text()
 
 
 async def _fetch_problems(url):
+    '''
+    GET all problem HTML
+
+    Keyword Arguments:
+        - url: Problem URL
+    '''
     def task_builder():
         for i in range(1, NUM_PROBLEMS + 1):
             yield asyncio.ensure_future(_fetch_problem(url % i, session))
@@ -34,6 +47,9 @@ async def _fetch_problems(url):
 
 
 def _parse_problem(html):
+    '''
+    Parses problem HTML into a JSON serializable format..
+    '''
     container = BeautifulSoup(html, 'html.parser')
 
     title = container.find('h2').get_text().strip()
@@ -56,6 +72,9 @@ def _parse_problem(html):
 
 
 def fetch_problems():
+    '''
+    Requests all problem HTML.
+    '''
     uvloop.install()
     for page in asyncio.run(_fetch_problems(PROBLEMS)):
         yield _parse_problem(page)
