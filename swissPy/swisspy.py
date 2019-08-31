@@ -13,16 +13,17 @@ def main():
     pass
 
 
-@main.command()
+@main.command(help='Createa $HOME/.euler/ directory for all problems to be stored in.')
 def setup():
-    euler = Path.home() / '.euler'
-    if not euler.exists():
+    try:
+        euler = Path.home() / '.euler'
         euler.mkdir()
-    else:
-        return AssertionError()
+        click.echo(f'Created {euler} directory.')
+    except FileExistsError as e:
+        print(f'{euler} already exists')
 
 
-@main.command()
+@main.command(help='Display problems, given their IDs or next in line.')
 @click.option('-r', '--range', default=None)
 @click.option('-n', '--next', is_flag=True)
 @click.option('-i', '--id', default=None)
@@ -40,7 +41,7 @@ def show(**kwargs):
         printer(method='range', **kwargs)
 
 
-@main.command()
+@main.command(help='Create a problem file given a programming language and problem ID.')
 @click.argument('language')
 @click.option('-n', '--next', is_flag=True)
 @click.option('-i', '--id')
@@ -51,9 +52,13 @@ def mkproblem(language, next, id):
         make_problem_file(language, id)
 
 
-@main.command()
+@main.command(help='Test a problem\'s solution')
+def test():
+    pass
+
+
+@main.command(help='Submit a problem to Project Euler.')
 @click.option('--id')
-@click.option('-l', '--language')
 def submit(id, language):
     rosalind = Path.home() / '.rosalind' / f'{id:>03}.{language}'
     extensions = load_extensions()
