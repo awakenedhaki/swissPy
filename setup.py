@@ -19,4 +19,5 @@ setuptools.setup(
     url="https://github.com/awakenedhaki/swissPy",
     packages=setuptools.find_packages(),
     python_requires='>=3.7',
+    entry_points={'console_scripts': ['euler = swissPy.__main__:main']}
 )
