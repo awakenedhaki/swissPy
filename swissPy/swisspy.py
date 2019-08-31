@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
 import json
 import click
 
@@ -8,7 +11,7 @@ from utils.loaders import load_extensions
 from utils.finders import find_next
 
 
-@click.group()
+@click.group(name='euler')
 def main():
     pass
 
