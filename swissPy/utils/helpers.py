@@ -2,7 +2,6 @@ from pathlib import Path
 from .loaders import load_extensions
 from .finders import find_problem, find_template
 
-
 EULER = Path.home() / '.euler'
 
 
