@@ -1,5 +1,8 @@
 from .loaders import *
 from operator import itemgetter
+from pathlib import Path
+
+EULER = Path.home() / '.euler'
 
 
 def find_problem(id):
