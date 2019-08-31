@@ -1,8 +1,8 @@
 import requests
 
 from pathlib import Path
-from swissPy.utils.loaders import load_extensions
-from swissPy.utils.finders import find_problem, find_template
+from .loaders import load_extensions
+from .finders import find_problem, find_template
 
 
 EULER = Path.home() / '.euler'

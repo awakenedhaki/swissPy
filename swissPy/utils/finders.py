@@ -1,4 +1,4 @@
-from swissPy.utils.loaders import *
+from .loaders import *
 from operator import itemgetter
 
 
